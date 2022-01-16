@@ -1,6 +1,8 @@
 import {useState} from "react";
 import { Button, Modal } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useDispatch } from "react-redux";
+import {addTodo} from "../../../redux/todos/todos-actions"
 
 const margin = {
     margin: "20px",
@@ -12,9 +14,11 @@ const textarea = {
     width: "100%"
 }
 
-export default function ModalList({onSubmit}) {
+export default function ModalList() {
     const [newTodo, setNewTodo] = useState('');
     const [show, setShow] = useState(false);
+
+    const dispatch = useDispatch();
 
     const openModal = () => setShow(true);
     const closeModal = () => setShow(false);
@@ -23,7 +27,7 @@ export default function ModalList({onSubmit}) {
     }
 
     const createTodo = () => {
-        onSubmit(newTodo);
+        dispatch(addTodo(newTodo));
         closeModal();
     }
 
